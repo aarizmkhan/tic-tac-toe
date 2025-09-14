@@ -1,0 +1,164 @@
+:root{
+  --bg:#000;
+  --panel:#111;
+  --cell:#333;
+  --line:#fff;
+  --text:#fff;
+  --x-symbol:#ff4d4d; /* red for Tac and X symbol color */
+  --o-symbol:#4d90ff; /* blue for Tic/Toe and O symbol color */
+  --logo-x-crimson:crimson; /* logo X color requested */
+  --logo-o-dark:darkblue;   /* logo O dark blue requested */
+  --board-max-width:760px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,Segoe UI,Roboto,Arial;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px;
+}
+
+/* Title */
+.title{
+  margin:4px 0 14px 0;
+  font-size:3rem;
+  font-weight:800;
+  text-align:center;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.title .tic, .title .toe{ color: var(--o-symbol); } /* blue */
+.title .tac{ color: var(--x-symbol); } /* red */
+
+/* logo letters after title */
+.title .logo-x{
+  color: var(--logo-x-crimson);
+  font-size:1.1em;
+  margin-left:10px;
+  font-weight:900;
+  transform: translateY(-2px);
+}
+.title .logo-o{
+  color: var(--logo-o-dark);
+  font-size:1.1em;
+  margin-left:4px;
+  font-weight:900;
+  transform: translateY(-2px);
+}
+
+/* container */
+#app{
+  width:100%;
+  max-width:var(--board-max-width);
+  text-align:center;
+}
+
+/* controls */
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:12px;
+  align-items:end;
+}
+.group{min-width:180px; text-align:left}
+.group label{display:block; font-size:13px; color:#ddd; margin-bottom:6px}
+
+/* segmented button groups */
+.segmented{
+  display:inline-flex;
+  border:2px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  background:transparent;
+}
+.segmented button{
+  background:transparent;
+  color:var(--text);
+  border:0;
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:14px;
+  min-width:52px;
+}
+.segmented button + button{ border-left:2px solid rgba(255,255,255,0.06) }
+.segmented button.active, .segmented button:hover{ background:var(--line); color:#111; font-weight:700 }
+
+/* message */
+#message{ min-height:24px; margin:8px 0 10px 0; font-weight:600; color:#fff }
+
+/* board container */
+#board-wrap{ display:flex; justify-content:center; margin-bottom:12px; }
+#board{
+  display:grid;
+  gap:0;
+  background:transparent;
+  /* grid-template-columns/rows & size set dynamically in JS */
+}
+
+/* connected grid lines: each cell has top + left border; last row/col get bottom/right */
+.cell{
+  background:var(--cell);
+  border-top:2px solid var(--line);
+  border-left:2px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  font-weight:700;
+  line-height:1;
+  transition: filter .12s;
+}
+.cell.last-col{ border-right:2px solid var(--line) }
+.cell.last-row{ border-bottom:2px solid var(--line) }
+.cell:hover{ filter:brightness(1.06) }
+
+/* symbol colors & sizes */
+.cell.X{ color: var(--x-symbol); font-size:1.4rem }
+.cell.O{ color: var(--o-symbol); font-size:1.4rem }
+
+/* actions */
+.actions{ margin-top:6px }
+#reset{
+  background:transparent;
+  color:var(--text);
+  border:2px solid var(--line);
+  padding:8px 14px;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+/* disco overlay full-screen */
+#disco-overlay{
+  position:fixed; inset:0; pointer-events:none; opacity:0; z-index:50; transition:opacity .12s;
+}
+#disco-overlay.active{ opacity:1; animation:discoColors 1s linear infinite; }
+@keyframes discoColors{
+  0%{background:#ff0044}14%{background:#ff9900}28%{background:#ffff00}
+  42%{background:#00ff00}56%{background:#00ffff}70%{background:#0000ff}
+  84%{background:#ff00ff}100%{background:#ff0044}
+}
+
+/* sad face overlay */
+#sad-overlay{
+  position:fixed; right:18px; top:50%; transform:translateY(-50%); font-size:48px; z-index:60; pointer-events:none; opacity:0;
+}
+#sad-overlay.active{ opacity:1; animation:sadGrow 10s forwards; }
+@keyframes sadGrow{
+  0%{ transform:translateY(-50%) scale(1); opacity:1 }
+  100%{ transform:translateY(-50%) scale(5); opacity:0 }
+}
+
+/* responsive tweaks */
+@media (max-width:520px){
+  .title{ font-size:2.2rem }
+}

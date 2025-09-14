@@ -1,0 +1,56 @@
+<div id="app">
+  <h1 class="title">
+    <span class="tic">Tic</span>
+    <span class="tac">Tac</span>
+    <span class="toe">Toe</span>
+    <!-- logo letters after the title -->
+    <span class="logo-x">X</span>
+    <span class="logo-o">O</span>
+  </h1>
+
+  <div class="controls">
+    <div class="group">
+      <label>Difficulty</label>
+      <div class="segmented" id="difficulty-group">
+        <button data-diff="easy">Easy</button>
+        <button data-diff="normal" class="active">Normal</button>
+        <button data-diff="hard">Hard</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <label>Grid Size</label>
+      <div class="segmented" id="grid-group">
+        <button data-size="3" class="active">3×3</button>
+        <button data-size="4">4×4</button>
+        <button data-size="5">5×5</button>
+        <button data-size="6">6×6</button>
+        <button data-size="7">7×7</button>
+        <button data-size="8">8×8</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <label>Win Length</label>
+      <div class="segmented" id="winlen-group">
+        <button data-win="3" class="active">3 in a row</button>
+        <button data-win="4">4 in a row</button>
+        <button data-win="5">5 in a row</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="message" aria-live="polite"></div>
+
+  <div id="board-wrap">
+    <div id="board"></div>
+  </div>
+
+  <div class="actions">
+    <button id="reset">Restart Game</button>
+  </div>
+
+  <!-- overlays -->
+  <div id="disco-overlay" aria-hidden="true"></div>
+  <div id="sad-overlay" aria-hidden="true">😢</div>
+</div>
